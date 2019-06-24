@@ -1,0 +1,36 @@
+{
+  "name": "techtest",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-less": "2.0.0",
+    "grunt-contrib-watch": "1.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "firebase": "^4.7.0",
+    "https": "^1.0.0",
+    "jquery": "^3.2.1",
+    "js-cookie": "^2.2.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.24.0",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-dom": "^15.6.1",
+    "react-fontawesome": "^1.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.12",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "gweg": "cd src && cd scripts && launchWindowsLocal.bat",
+    "mac": "cd src && cd scripts && chmod +x ./launchMacLocal.sh && ./launchMacLocal.sh",
+    "start": "react-scripts start",
+    "build": "grunt && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "react-scripts build && firebase deploy --only hosting"
+  }
+}

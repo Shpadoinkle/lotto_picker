@@ -1,0 +1,3 @@
+export const GENERAL_RESET = 'GENERAL_RESET';
+
+export const RESULTS_LOADED = 'RESULTS_LOADED';
