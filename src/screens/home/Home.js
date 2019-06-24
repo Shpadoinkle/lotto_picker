@@ -11,7 +11,8 @@ import { lottoActions } from '../../webapi';
 class Home extends Component {
     initialState = {
         loading: false,
-        loadResults: []
+        results: [],
+        results2: []
     }
 
     state = { ...this.initialState };
@@ -27,7 +28,7 @@ class Home extends Component {
     }
 
     updateProps(props) {
-        this.setState({ loadResults: props.loadResults });
+        // this.setState({ loadResults: props.loadResults });
     }
 
     testGet() {
@@ -38,53 +39,16 @@ class Home extends Component {
                 console.log(res)
                 if (res.data.Success) {
                     console.log('fetch was gooooood')
+                    console.log(res.data.DrawResults[0].PrimaryNumbers)
+                    this.setState({
+                        results: res.data.DrawResults[0].PrimaryNumbers,
+                        results2: res.data.DrawResults[0].SecondaryNumbers
+                    })
                 }
             })
             .catch((err) => {
                 console.log('fetch FAIL')
                 console.log(err)
-            });
-    }
-
-    search = async (isPop) => {
-        let searchString = encodeURIComponent(this.state.Search);
-        searchString = searchString.replace(/%20/g, "+");
-
-        let apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=6ed12e064b90ae1290fa326ce9e790ff&query=${searchString}&language=en-US`;
-
-        if (isPop) {
-            apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=6ed12e064b90ae1290fa326ce9e790ff&language=en-US&page=1`
-        }
-
-        this.setState({ loading: !isPop, testResults: [], empty: false, searchReturn: false });
-
-        axios({
-            method: 'get',
-            url: apiUrl,
-        })
-            .then((res) => {
-                // console.log('results....')
-                // console.log(res.data.results);
-                if (isPop) {
-                    this.props.loadPop(res.data.results);
-                    this.setState({
-                        popular: res.data.results,
-                        empty: _.isEmpty(res.data.results),
-                        loading: false
-                    });
-                } else {
-                    this.props.loadLists(res.data.results);
-                    this.setState({
-                        testResults: res.data.results,
-                        empty: _.isEmpty(res.data.results),
-                        loading: false,
-                        searchReturn: true
-                    });
-                }
-            }).catch((err) => {
-                console.log(err);
-                console.log('error');
-                this.setState({ loading: false });
             });
     }
 
@@ -105,12 +69,32 @@ class Home extends Component {
         }
     }
 
+    testRender1() {
+        if (_.isEmpty(this.state.results)) {
+            return null;
+        }
+        return _.map(this.state.results, (element, index) => {
+            return  <div key={index} style={{ height: 20, width: 20, backgroundColor: 'cyan', margin: 4 }}>{element}</div>
+        });
+    }
+
+    testRender2() {
+        if (_.isEmpty(this.state.results2)) {
+            return null;
+        }
+        return _.map(this.state.results2, (element, index) => {
+            return  <div key={index} style={{ height: 20, width: 20, backgroundColor: 'coral', margin: 4 }}>{element}</div>
+        });
+    }
+
     render() {
         return (
             <div className={`relative pageContainer`} style={{ padding: 17, paddingTop: 0 }}>
                 {this.renderLoading()}
                 <div className='resultsContainer'>
                     {this.renderResults()}
+                    {this.testRender1()}
+                    {this.testRender2()}
                 </div>
             </div>
         );
