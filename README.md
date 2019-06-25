@@ -1,4 +1,4 @@
-Technical Test for TabCorp
+Lotto picker api play around
 
 This can be viewed at [my firebase project](https://thoash-7b778.firebaseapp.com)
 
