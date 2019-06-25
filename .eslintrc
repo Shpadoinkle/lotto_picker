@@ -1,0 +1,10 @@
+{
+    "extends": "rallycoding",
+    "rules": {
+        "max-len": "off",
+        "arrow-body-style": "off",
+        "global-require": "off",
+        "no-param-reassign": "off",
+        "radix": "off"
+    }
+}

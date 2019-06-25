@@ -55,6 +55,7 @@ body {
 @TEXT_BRAND_LIGHT: #A1D1E6;
 @TEXT_BRAND_MID: #9FBBC7;
 @COLOUR_GREEN: #01D277;
+
 @font-face {
     font-family: 'Roboto';
     src: url('https://fonts.googleapis.com/css?family=Roboto"');
@@ -101,6 +102,10 @@ body {
     display: flex;
 }
 
+.flex-centre {
+    justify-content: center;
+}
+
 .relative {
     position: relative;
 }
@@ -120,19 +125,106 @@ body {
 }
 
 
+// Ball
+.ball {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    margin: 0px 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    background-color: #3653A4;
+
+    .less-box-shadow-common-withDirection(rgba(0, 0, 0, 0.4), 4px, 1px, 1px);
+    .less-border-radius(15px);
+}
+
+.ball-power {
+    background-color: #899BAA;
+}
+
+.ball-empty {
+    background-color: #fff;
+    color: @TEXT_MID;
+}
+
+.resTable {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    width: 301px
+}
+
+.resTable_cell {
+    width: 30px;
+    height: 30px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
+}
+
+.ball_isChosen {
+    background-color: #e9e4f0;
+}
+
+.ispowerball {
+    &.ball_isChosen {
+        background-color: #e9e4f0;
+    }
+}
+
+.table_chosen {
+    display: none;
+    position: absolute;
+    font-size: 28px;
+    color: #d6cde3;
+    z-index: 1;
+}
+
+.ball_isChosen {
+    .table_chosen {
+        display: inline;
+    }
+}
+
+
+.homeButton {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    background-color: #6c4498;
+    color: #fff;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+    margin: 4px;
+    cursor: pointer;
+}
+
+.homeButton-trash {
+    background-color: #767676;
+}
+
+
 @media only screen and (max-width: 600px) {
     body {
         margin: 0;
         padding: 0;
         font-family: sans-serif;
     }
-   
-}
-
-@media only screen and (max-width: 370px) {
-   
-}
-
-@media only screen and (max-width: 350px) {
 
 }
+
+@media only screen and (max-width: 370px) {}
+
+@media only screen and (max-width: 350px) {}

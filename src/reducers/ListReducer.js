@@ -4,7 +4,8 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    results: []
+    results: [],
+    results2: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,7 +13,8 @@ export default (state = INITIAL_STATE, action) => {
         case RESULTS_LOADED:
             return {
                 ...state,
-                results: action.payload
+                results: action.payload.res,
+                results2: action.payload.res2
             };
         case GENERAL_RESET:
             return INITIAL_STATE;

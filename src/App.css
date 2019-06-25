@@ -32,6 +32,9 @@ body {
 .flex {
   display: flex;
 }
+.flex-centre {
+  justify-content: center;
+}
 .relative {
   position: relative;
 }
@@ -46,6 +49,80 @@ body {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+}
+.ball {
+  height: 30px;
+  width: 30px;
+  margin: 0px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  background-color: #3653A4;
+  -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+.ball-power {
+  background-color: #899BAA;
+}
+.ball-empty {
+  background-color: #fff;
+  color: #5a5a6e;
+}
+.resTable {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  width: 301px;
+}
+.resTable_cell {
+  width: 30px;
+  height: 30px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+}
+.ball_isChosen {
+  background-color: #e9e4f0;
+}
+.ispowerball.ball_isChosen {
+  background-color: #e9e4f0;
+}
+.table_chosen {
+  display: none;
+  position: absolute;
+  font-size: 28px;
+  color: #d6cde3;
+  z-index: 1;
+}
+.ball_isChosen .table_chosen {
+  display: inline;
+}
+.homeButton {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  background-color: #6c4498;
+  color: #fff;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: center;
+  margin: 4px;
+  cursor: pointer;
+}
+.homeButton-trash {
+  background-color: #767676;
 }
 @media only screen and (max-width: 600px) {
   body {

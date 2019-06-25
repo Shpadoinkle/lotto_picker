@@ -22,7 +22,7 @@ class App extends Component {
       projectId: "thoash-7b778",
       storageBucket: "thoash-7b778.appspot.com",
       messagingSenderId: "213870389423",
-      appId: "1:213870389423:web:b75405ac6dab3002"
+      appId: "1:213870389423:web:f0799434da8eb1ed"
     };
     firebase.initializeApp(config);
   }

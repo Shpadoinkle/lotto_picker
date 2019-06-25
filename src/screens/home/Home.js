@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
-import { loadResults } from '../../actions';
-import { TEXT_BRAND } from '../../js';
+import { loadResults, resetResults } from '../../actions';
+import { TEXT_DARK } from '../../js';
 import { lottoActions } from '../../webapi';
+import Results from './Results';
+import Table from './Table';
 
 class Home extends Component {
     initialState = {
-        loading: false,
-        results: [],
-        results2: []
+        loading: false
     }
 
     state = { ...this.initialState };
@@ -20,7 +19,7 @@ class Home extends Component {
     componentDidMount() {
         this.updateProps(this.props);
 
-        this.testGet();
+        // this.testGet();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,69 +31,59 @@ class Home extends Component {
     }
 
     testGet() {
-        console.log('Test Powerball fetch')
+        this.setState({ loading: true });
         lottoActions.getLastPowerball()
             .then((res) => {
-                console.log('fetch reutrn')
-                console.log(res)
                 if (res.data.Success) {
-                    console.log('fetch was gooooood')
-                    console.log(res.data.DrawResults[0].PrimaryNumbers)
-                    this.setState({
-                        results: res.data.DrawResults[0].PrimaryNumbers,
-                        results2: res.data.DrawResults[0].SecondaryNumbers
-                    })
+                    this.setState({ loading: false });
+                    this.props.loadResults(
+                        res.data.DrawResults[0].PrimaryNumbers,
+                        res.data.DrawResults[0].SecondaryNumbers
+                    );
                 }
             })
             .catch((err) => {
                 console.log('fetch FAIL')
-                console.log(err)
+                console.log(err);
+                this.setState({ loading: false });
             });
     }
 
-    renderResults() {
-        if (this.state.loading) {
-            return null;
-        }
-        return null;
+    autoPick() {
+        console.log('Click on autoFill...');
+        this.testGet();
+    }
+
+    clearSelection() {
+        console.log('Clearing...');
+        this.props.resetResults();
     }
 
     renderLoading() {
         if (this.state.loading) {
-            return (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <FontAwesome style={styles.spinner} name="spinner fa-pulse fa-fw" />
-                </div>
-            );
+            return <FontAwesome style={styles.spinner} name="spinner fa-pulse fa-fw" />;
         }
-    }
-
-    testRender1() {
-        if (_.isEmpty(this.state.results)) {
-            return null;
-        }
-        return _.map(this.state.results, (element, index) => {
-            return  <div key={index} style={{ height: 20, width: 20, backgroundColor: 'cyan', margin: 4 }}>{element}</div>
-        });
-    }
-
-    testRender2() {
-        if (_.isEmpty(this.state.results2)) {
-            return null;
-        }
-        return _.map(this.state.results2, (element, index) => {
-            return  <div key={index} style={{ height: 20, width: 20, backgroundColor: 'coral', margin: 4 }}>{element}</div>
-        });
     }
 
     render() {
         return (
             <div className={`relative pageContainer`} style={{ padding: 17, paddingTop: 0 }}>
-                {this.renderLoading()}
-                <div className='resultsContainer'>
-                    {this.renderResults()}
-                    {this.testRender1()}
-                    {this.testRender2()}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 60 }}>
+                    {this.renderLoading()}
+                </div>
+                <div style={styles.resultsContainer}>
+                    <Results />
+                </div>
+                <div style={styles.resultsContainer}>
+                    <Table />
+                </div>
+                <div style={{ ...styles.resultsContainer, marginTop: 24 }} >
+                    <div onClick={this.autoPick.bind(this)} className="homeButton">
+                        <div className="fa fa-bolt" />
+                    </div>
+                    <div onClick={this.clearSelection.bind(this)} className="homeButton homeButton-trash">
+                        <div className="fa fa-trash" />
+                    </div>
                 </div>
             </div>
         );
@@ -104,7 +93,8 @@ class Home extends Component {
 const styles = {
     resultsContainer: {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
     listheader: {
         lineHeight: '24px',
@@ -114,15 +104,8 @@ const styles = {
         letterSpacing: '1px'
     },
     spinner: {
-        color: TEXT_BRAND
+        color: TEXT_DARK
     }
 }
 
-const mapStateToProps = (state) => {
-    const { list } = state;
-    return {
-        results: list.results
-    };
-};
-
-export default connect(mapStateToProps, { loadResults })(withRouter(Home));
+export default connect(null, { loadResults, resetResults })(withRouter(Home));
